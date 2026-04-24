@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brush Cutters | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex items-center justify-between">
+      <!-- ... your header html ... -->
+      <nav class="space-x-4">
+        <a href="login.html" class="text-blue-600">Login</a>
+        <a href="cart.html" class="text-blue-600 cart-counter">Cart 🛒</a>
+      </nav>
+  </header>
+  
+  <!-- ... your breadcrumb and title sections ... -->
+
+  <!-- Product Grid -->
+  <section class="py-10 bg-gray-50">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6" id="brushCutterGrid">
+      <!-- JS will inject cards -->
+    </div>
+  </section>
+
+  <!-- ... your footer ... -->
+   <!-- START of the New Modern Footer -->
+<footer class="bg-gray-800 text-white" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      
+      <!-- Logo and Mission Section -->
+      <div class="space-y-8 xl:col-span-1">
+        <div class="flex items-center">
+          <img class="h-10 w-auto" src="images/kv.png" alt="KisanValley Logo">
+          <span class="ml-3 text-2xl font-bold">KisanValley</span>
+        </div>
+        <p class="text-gray-400 text-base">
+          Your trusted partner for high-quality agricultural machinery. Empowering farmers with technology and support.
+        </p>
+        
+        <!-- Social Media Icons -->
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">Facebook</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">Instagram</span>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7a5 5 0 100 10 5 5 0 000-10zm0-2a7 7 0 110 14 7 7 0 010-14zm6.406-1.185a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <a href="#" class="text-gray-400 hover:text-white">
+            <span class="sr-only">YouTube</span>
+             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814c-.23.861-.907 1.538-1.768 1.768C18.219 19 12 19 12 19s-6.219 0-7.812-1.418c-.861-.23-1.538-.907-1.768-1.768C2.002 15.22 2 12 2 12s0-3.22.42-4.814c.23-.861.907-1.538 1.768-1.768C5.781 5 12 5 12 5s6.219 0 7.812.418zM9.996 15.002l5.207-3.002-5.207-3v6.002z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links Sections -->
+      <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase">Quick Links</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li><a href="index.html" class="text-base text-gray-400 hover:text-white">Home</a></li>
+              <li><a href="index.html#products" class="text-base text-gray-400 hover:text-white">Products</a></li>
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">About Us</a></li>
+            </ul>
+          </div>
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase">Categories</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li><a href="weeder-tiller.html" class="text-base text-gray-400 hover:text-white">Weeders & Tillers</a></li>
+              <li><a href="brush-cutters.html" class="text-base text-gray-400 hover:text-white">Brush Cutters</a></li>
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">Water Pumps</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase">Support</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">FAQ</a></li>
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">Shipping Policy</a></li>
+            </ul>
+          </div>
+          <div class="mt-12 md:mt-0">
+            <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase">Legal</h3>
+            <ul role="list" class="mt-4 space-y-4">
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">Privacy Policy</a></li>
+              <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Bar -->
+    <div class="mt-8 border-t border-gray-700 pt-8">
+      <p class="text-base text-gray-400 text-center">&copy; 2025 KisanValley. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- END of the New Modern Footer -->
+
+  <!-- JS: Load Products -->
+  <script src="products.js"></script> <!-- Our central product database -->
+  <script src="cart.js"></script>     <!-- Our global cart functions -->
+
+  <script>
+    const grid = document.getElementById("brushCutterGrid");
+    
+    // Filter allSiteProducts to get only brush cutters
+    const brushCutterProducts = Object.values(allSiteProducts).filter(
+      product => product.category === 'brush-cutter'
+    );
+
+    brushCutterProducts.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "bg-white shadow-md rounded overflow-hidden";
+      // Note the updated button: onclick="addToCart('${product.id}')"
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h4 class="text-lg font-bold">${product.name}</h4>
+          <p class="text-green-700 font-semibold mb-2">₹${product.price.toLocaleString()}</p>
+          <button onclick="addToCart('${product.id}')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>

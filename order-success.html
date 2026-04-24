@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+  <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center space-x-3">
+      <img src="images/kv.png" alt="KisanValley Logo" class="w-10 h-auto">
+      <h1 class="text-xl font-bold">Kisan Valley</h1>
+    </a>
+    <nav class="space-x-4">
+      <a href="index.html" class="text-blue-600">Home</a>
+      <a href="cart.html" class="text-blue-600 cart-counter">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <main class="flex-1 py-10 px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+      <div id="loadingState" class="text-center py-10">
+        <p class="text-gray-500">Loading your order...</p>
+      </div>
+
+      <div id="successState" class="hidden">
+        <div class="flex flex-col items-center text-center mb-6">
+          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-3">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold">Thank you for your order!</h2>
+          <p class="text-gray-600 mt-1">We've received your order and will contact you shortly.</p>
+        </div>
+
+        <div class="border-t pt-4 space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-gray-500">Order ID</span><span id="orderId" class="font-mono"></span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Status</span><span id="orderStatus" class="font-semibold"></span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Payment Method</span><span id="orderPayment"></span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Placed On</span><span id="orderDate"></span></div>
+        </div>
+
+        <div class="border-t mt-6 pt-4">
+          <h3 class="font-bold mb-3">Items</h3>
+          <div id="orderItems" class="space-y-3"></div>
+        </div>
+
+        <div class="border-t mt-6 pt-4 space-y-1 text-sm">
+          <div class="flex justify-between"><span>Subtotal</span><span id="orderSubtotal"></span></div>
+          <div class="flex justify-between font-bold text-lg pt-2"><span>Total</span><span id="orderTotal" class="text-green-700"></span></div>
+        </div>
+
+        <div class="border-t mt-6 pt-4">
+          <h3 class="font-bold mb-2">Shipping To</h3>
+          <div id="shippingAddress" class="text-sm text-gray-700 whitespace-pre-line"></div>
+        </div>
+
+        <div class="mt-8 flex gap-3">
+          <a href="index.html" class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+
+      <div id="errorState" class="hidden text-center py-10">
+        <h2 class="text-xl font-bold text-red-600 mb-2">Order not found</h2>
+        <p id="errorMessage" class="text-gray-600 mb-4">We couldn't find this order. If you just placed it, please try refreshing.</p>
+        <a href="index.html" class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="cart.js"></script>
+  <script>
+    const orderId = new URLSearchParams(window.location.search).get("id");
+    const loadingState = document.getElementById("loadingState");
+    const successState = document.getElementById("successState");
+    const errorState = document.getElementById("errorState");
+    const errorMessage = document.getElementById("errorMessage");
+
+    function showError(msg) {
+      loadingState.classList.add("hidden");
+      successState.classList.add("hidden");
+      errorState.classList.remove("hidden");
+      if (msg) errorMessage.textContent = msg;
+    }
+
+    function paymentLabel(method, status) {
+      if (method === "cod") return "Cash on Delivery";
+      if (method === "online") return status === "paid" ? "Paid online" : "Online (pending)";
+      return method;
+    }
+
+    async function loadOrder() {
+      if (!orderId) {
+        showError("No order ID provided.");
+        return;
+      }
+      try {
+        const res = await fetch(`/.netlify/functions/get-order?id=${encodeURIComponent(orderId)}`);
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          showError(data.error || "We couldn't find this order.");
+          return;
+        }
+        const order = await res.json();
+        render(order);
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    function render(order) {
+      loadingState.classList.add("hidden");
+      successState.classList.remove("hidden");
+
+      document.getElementById("orderId").textContent = order.id;
+      document.getElementById("orderStatus").textContent = order.status;
+      document.getElementById("orderPayment").textContent = paymentLabel(order.paymentMethod, order.status);
+      document.getElementById("orderDate").textContent = new Date(order.createdAt).toLocaleString();
+
+      const itemsEl = document.getElementById("orderItems");
+      itemsEl.innerHTML = order.items.map(it => `
+        <div class="flex justify-between items-center text-sm">
+          <div class="flex-1">
+            <div class="font-semibold">${it.name}</div>
+            <div class="text-gray-500 text-xs">Qty ${it.quantity} × ₹${Number(it.price).toLocaleString()}</div>
+          </div>
+          <div class="font-semibold">₹${(Number(it.price) * Number(it.quantity)).toLocaleString()}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("orderSubtotal").textContent = `₹${Number(order.subtotal).toLocaleString()}`;
+      document.getElementById("orderTotal").textContent = `₹${Number(order.total).toLocaleString()}`;
+
+      const c = order.customer;
+      document.getElementById("shippingAddress").textContent =
+        `${c.fullName}\n${c.address}\n${c.city}, ${c.state} ${c.pincode}\n${c.country}\nPhone: ${c.phone}\nEmail: ${c.email}`;
+    }
+
+    loadOrder();
+  </script>
+</body>
+</html>

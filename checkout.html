@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    .spin {
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="images/kv.png" alt="KisanValley Logo" class="w-10 h-auto">
+        <h1 class="text-xl font-bold">Kisan Valley</h1>
+      </a>
+    </div>
+    <nav class="space-x-4">
+      <a href="cart.html" class="text-blue-600 cart-counter">Cart 🛒</a>
+    </nav>
+  </header>
+
+  <!-- Page Title -->
+  <section class="bg-white shadow p-6 text-center">
+    <h2 class="text-3xl font-bold">Checkout</h2>
+    <p class="text-gray-600 mt-2">Fill in your details and choose a payment method</p>
+  </section>
+
+  <main class="py-8 px-4 sm:px-6">
+    <div id="checkoutRoot" class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      <!-- Shipping & Payment -->
+      <section class="lg:col-span-2 space-y-6">
+        <form id="checkoutForm" class="bg-white rounded-lg shadow-md p-6 space-y-6" novalidate>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="text-lg font-bold mb-3 border-b pb-2">Contact Information</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">Full Name</label>
+                <input id="fullName" type="text" required minlength="2"
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">Email</label>
+                <input id="email" type="email" required
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-gray-700">Phone Number</label>
+                <input id="phone" type="tel" required pattern="[0-9+\s\-]{10,15}" placeholder="10-digit mobile"
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping -->
+          <div>
+            <h3 class="text-lg font-bold mb-3 border-b pb-2">Shipping Address</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="md:col-span-2">
+                <label class="block text-sm font-semibold text-gray-700">Address</label>
+                <input id="address" type="text" required minlength="5" placeholder="House no., street, area"
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">City</label>
+                <input id="city" type="text" required
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">State</label>
+                <input id="state" type="text" required
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">Pincode</label>
+                <input id="pincode" type="text" required pattern="[0-9]{6}" placeholder="6-digit"
+                  class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700">Country</label>
+                <input id="country" type="text" value="India" readonly
+                  class="w-full px-3 py-2 border rounded bg-gray-50 text-gray-600" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment method -->
+          <div>
+            <h3 class="text-lg font-bold mb-3 border-b pb-2">Payment Method</h3>
+            <div class="space-y-3">
+              <label class="flex items-start gap-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <input type="radio" name="paymentMethod" value="online" class="mt-1" checked />
+                <div>
+                  <div class="font-semibold">Online Payment (UPI / Card / Net Banking)</div>
+                  <div class="text-sm text-gray-500">Pay securely via Razorpay. UPI, credit/debit cards, and all major banks supported.</div>
+                </div>
+              </label>
+              <label class="flex items-start gap-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <input type="radio" name="paymentMethod" value="cod" class="mt-1" />
+                <div>
+                  <div class="font-semibold">Cash on Delivery</div>
+                  <div class="text-sm text-gray-500">Pay in cash when your order arrives at your doorstep.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div id="formError" class="hidden p-3 rounded bg-red-50 border border-red-200 text-red-700 text-sm"></div>
+
+          <button id="placeOrderBtn" type="submit"
+            class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
+            <span id="placeOrderLabel">Place Order</span>
+            <svg id="placeOrderSpinner" class="hidden spin h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-width="3" stroke-linecap="round" d="M12 3a9 9 0 1 0 9 9"/>
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- Order Summary -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-8">
+          <h3 class="text-xl font-bold mb-4 border-b pb-3">Order Summary</h3>
+          <div id="summaryItems" class="space-y-3 max-h-80 overflow-y-auto mb-4"></div>
+          <div class="space-y-2 border-t pt-4">
+            <div class="flex justify-between text-sm">
+              <span>Subtotal</span>
+              <span id="subtotal" class="font-semibold">₹0</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>Shipping</span>
+              <span class="font-semibold">FREE</span>
+            </div>
+            <div class="flex justify-between font-bold text-lg border-t pt-3 mt-2">
+              <span>Total</span>
+              <span id="total" class="text-green-700">₹0</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Empty cart fallback -->
+    <div id="emptyCart" class="hidden text-center max-w-lg mx-auto bg-white rounded-lg shadow-md p-10">
+      <h3 class="text-xl font-semibold text-gray-800">Your cart is empty</h3>
+      <p class="mt-2 text-gray-500">Add some products before checking out.</p>
+      <a href="index.html"
+        class="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-2 rounded">
+        ← Continue Shopping
+      </a>
+    </div>
+  </main>
+
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const checkoutRoot = document.getElementById("checkoutRoot");
+    const emptyCart = document.getElementById("emptyCart");
+    const summaryItems = document.getElementById("summaryItems");
+    const subtotalEl = document.getElementById("subtotal");
+    const totalEl = document.getElementById("total");
+    const formError = document.getElementById("formError");
+    const placeOrderBtn = document.getElementById("placeOrderBtn");
+    const placeOrderLabel = document.getElementById("placeOrderLabel");
+    const placeOrderSpinner = document.getElementById("placeOrderSpinner");
+
+    function buildLineItems() {
+      const items = [];
+      let subtotal = 0;
+      for (const row of cart) {
+        const product = allSiteProducts[row.id];
+        if (!product) continue;
+        const qty = Number(row.quantity) || 0;
+        const lineTotal = product.price * qty;
+        subtotal += lineTotal;
+        items.push({
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          quantity: qty,
+          lineTotal
+        });
+      }
+      return { items, subtotal };
+    }
+
+    function renderSummary() {
+      const { items, subtotal } = buildLineItems();
+
+      if (items.length === 0) {
+        checkoutRoot.classList.add("hidden");
+        emptyCart.classList.remove("hidden");
+        return null;
+      }
+
+      summaryItems.innerHTML = items.map(it => `
+        <div class="flex items-center gap-3">
+          <img src="${it.image}" alt="${it.name}" class="w-14 h-14 object-cover rounded" />
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold truncate">${it.name}</div>
+            <div class="text-xs text-gray-500">Qty ${it.quantity} × ₹${it.price.toLocaleString()}</div>
+          </div>
+          <div class="text-sm font-semibold">₹${it.lineTotal.toLocaleString()}</div>
+        </div>
+      `).join("");
+
+      subtotalEl.textContent = `₹${subtotal.toLocaleString()}`;
+      totalEl.textContent = `₹${subtotal.toLocaleString()}`;
+      return { items, subtotal };
+    }
+
+    function showError(msg) {
+      formError.textContent = msg;
+      formError.classList.remove("hidden");
+    }
+    function clearError() {
+      formError.textContent = "";
+      formError.classList.add("hidden");
+    }
+    function setLoading(loading) {
+      placeOrderBtn.disabled = loading;
+      placeOrderSpinner.classList.toggle("hidden", !loading);
+      placeOrderLabel.textContent = loading ? "Processing..." : "Place Order";
+    }
+
+    function collectCustomer() {
+      return {
+        fullName: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        city: document.getElementById("city").value.trim(),
+        state: document.getElementById("state").value.trim(),
+        pincode: document.getElementById("pincode").value.trim(),
+        country: document.getElementById("country").value.trim()
+      };
+    }
+
+    async function createOrder(payload) {
+      const res = await fetch("/.netlify/functions/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to create order");
+      return data;
+    }
+
+    async function verifyPayment(body) {
+      const res = await fetch("/.netlify/functions/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Payment verification failed");
+      return data;
+    }
+
+    function goToSuccess(orderId) {
+      localStorage.removeItem("cart");
+      window.location.href = `order-success.html?id=${encodeURIComponent(orderId)}`;
+    }
+
+    function launchRazorpay({ keyId, razorpayOrderId, amount, orderId, customer }) {
+      return new Promise((resolve, reject) => {
+        const options = {
+          key: keyId,
+          amount,
+          currency: "INR",
+          name: "KisanValley",
+          description: `Order ${orderId}`,
+          order_id: razorpayOrderId,
+          prefill: {
+            name: customer.fullName,
+            email: customer.email,
+            contact: customer.phone
+          },
+          theme: { color: "#16a34a" },
+          handler: async (response) => {
+            try {
+              await verifyPayment({
+                orderId,
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature
+              });
+              resolve(orderId);
+            } catch (err) {
+              reject(err);
+            }
+          },
+          modal: {
+            ondismiss: () => reject(new Error("Payment cancelled"))
+          }
+        };
+        const rzp = new Razorpay(options);
+        rzp.on("payment.failed", (resp) =>
+          reject(new Error(resp?.error?.description || "Payment failed"))
+        );
+        rzp.open();
+      });
+    }
+
+    document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const form = e.target;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const summary = renderSummary();
+      if (!summary || summary.items.length === 0) {
+        showError("Your cart is empty.");
+        return;
+      }
+
+      const customer = collectCustomer();
+      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+      setLoading(true);
+      try {
+        const orderResp = await createOrder({
+          items: summary.items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+          customer,
+          paymentMethod
+        });
+
+        if (paymentMethod === "cod") {
+          goToSuccess(orderResp.orderId);
+          return;
+        }
+
+        if (!orderResp.razorpay) {
+          throw new Error(
+            "Online payment is not yet configured on this site. Please choose Cash on Delivery or contact the seller."
+          );
+        }
+
+        await launchRazorpay({
+          keyId: orderResp.razorpay.keyId,
+          razorpayOrderId: orderResp.razorpay.razorpayOrderId,
+          amount: orderResp.razorpay.amount,
+          orderId: orderResp.orderId,
+          customer
+        });
+        goToSuccess(orderResp.orderId);
+      } catch (err) {
+        showError(err.message || "Something went wrong. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    renderSummary();
+  </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 flex items-center justify-center min-h-screen">
+
+  <!-- Login Card -->
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <div class="flex flex-col items-center mb-6">
+      <img src="images/kv.png" alt="KisanValley Logo" class="w-16 mb-2" />
+      <h1 class="text-2xl font-bold text-green-700">Welcome Back</h1>
+      <p class="text-gray-500 text-sm">Login to your KisanValley account</p>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Email</label>
+        <input type="email" id="email" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="you@example.com" required />
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700">Password</label>
+        <input type="password" id="password" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="********" required />
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center">
+          <input type="checkbox" class="mr-2"> Remember me
+        </label>
+        <a href="#" class="text-green-600 hover:underline">Forgot Password?</a>
+      </div>
+      <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition">
+        Login
+      </button>
+    </form>
+
+    <!-- Result -->
+    <div id="resultMessage" class="mt-4 text-center text-sm font-semibold text-red-500 hidden"></div>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Don't have an account?
+      <a href="signup.html" class="text-green-600 hover:underline">Sign up</a>
+    </p>
+  </div>
+
+  <!-- JavaScript: Simple Validation -->
+  <script>
+    const form = document.getElementById("loginForm");
+    const result = document.getElementById("resultMessage");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      // Dummy validation (replace with backend call)
+      if (email === "admin@kisanvalley.com" && password === "admin123") {
+        result.classList.remove("text-red-500", "hidden");
+        result.classList.add("text-green-600");
+        result.textContent = "Login successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      } else {
+        result.classList.remove("hidden", "text-green-600");
+        result.classList.add("text-red-500");
+        result.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
+
+</body>
+</html>

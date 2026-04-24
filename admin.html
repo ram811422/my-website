@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-green-700">KisanValley Admin Panel</h1>
+    <a href="index.html" class="text-green-600 hover:underline">← Back to Website</a>
+  </header>
+
+  <!-- Admin Container -->
+  <main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded shadow space-y-6">
+    
+    <!-- Add Product Form -->
+    <section>
+      <h2 class="text-lg font-semibold mb-4">➕ Add New Product</h2>
+      <form id="productForm" class="space-y-4">
+        <input type="text" id="productName" placeholder="Product Name" class="w-full p-2 border rounded" required />
+        <input type="number" id="productPrice" placeholder="Price (₹)" class="w-full p-2 border rounded" required />
+        <input type="file" id="productImage" accept="image/*" class="w-full p-2 border rounded" required />
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Product</button>
+      </form>
+    </section>
+
+    <!-- Product List -->
+    <section>
+      <h2 class="text-lg font-semibold mb-4">🛒 Current Products</h2>
+      <div id="adminProductList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+    </section>
+  </main>
+
+  <!-- JS Logic -->
+  <script>
+    const form = document.getElementById('productForm');
+    const nameInput = document.getElementById('productName');
+    const priceInput = document.getElementById('productPrice');
+    const imageInput = document.getElementById('productImage');
+    const listContainer = document.getElementById('adminProductList');
+
+    let productList = JSON.parse(localStorage.getItem("products")) || [];
+
+    function renderAdminList() {
+      listContainer.innerHTML = "";
+
+      if (productList.length === 0) {
+        listContainer.innerHTML = `<p class="col-span-full text-gray-500 text-center">No products added yet.</p>`;
+        return;
+      }
+
+      productList.forEach((product, index) => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-50 shadow rounded p-4";
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="h-32 w-full object-cover rounded mb-2" />
+          <h3 class="font-bold text-lg">${product.name}</h3>
+          <p class="text-green-700 font-semibold mb-2">₹${product.price}</p>
+          <button onclick="removeProduct(${index})" class="text-red-600 hover:underline text-sm">Remove</button>
+        `;
+        listContainer.appendChild(card);
+      });
+    }
+
+    function removeProduct(index) {
+      productList.splice(index, 1);
+      localStorage.setItem("products", JSON.stringify(productList));
+      renderAdminList();
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const file = imageInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const newProduct = {
+          name: nameInput.value.trim(),
+          price: parseInt(priceInput.value),
+          image: event.target.result // Base64 encoded image
+        };
+
+        productList.push(newProduct);
+        localStorage.setItem("products", JSON.stringify(productList));
+        form.reset();
+        renderAdminList();
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+
+    renderAdminList();
+  </script>
+</body>
+</html>

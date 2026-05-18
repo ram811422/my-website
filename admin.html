@@ -15,7 +15,7 @@
           <img src="images/kv.png" alt="KisanValley Logo">
           <span>
             <span class="kv-brand-title">KisanValley Admin</span>
-            <span class="kv-brand-subtitle">Product management</span>
+            <span class="kv-brand-subtitle">Product management with AI</span>
           </span>
         </a>
         <nav class="kv-shell-nav">
@@ -29,13 +29,37 @@
   <main>
     <section class="kv-page-hero">
       <div class="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-        <p class="inline-flex rounded-full bg-white/12 px-4 py-2 text-sm font-bold text-green-50 ring-1 ring-white/20">Admin panel</p>
-        <h1 class="mt-5 text-4xl font-black tracking-tight sm:text-5xl">Manage storefront products.</h1>
-        <p class="mt-5 max-w-2xl text-lg leading-8 text-green-50">Add local products for testing and preview them in the storefront catalog.</p>
+        <p class="inline-flex rounded-full bg-white/12 px-4 py-2 text-sm font-bold text-green-50 ring-1 ring-white/20">Admin panel with AI</p>
+        <h1 class="mt-5 text-4xl font-black tracking-tight sm:text-5xl">Manage storefront products with AI assistance.</h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-green-50">Add products and use AI to generate professional descriptions powered by Google Gemini.</p>
       </div>
     </section>
 
     <section class="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:px-6 lg:px-8">
+      
+      <!-- Google AI Configuration Section -->
+      <div class="rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100 p-6 shadow-soft ring-1 ring-blue-200">
+        <p class="text-sm font-black uppercase tracking-[0.2em] text-blue-600">🤖 AI Configuration</p>
+        <h2 class="mt-2 text-2xl font-black text-blue-900">Google AI Studio Setup</h2>
+        <p class="mt-2 text-sm text-blue-800">Get your free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline font-bold">Google AI Studio</a></p>
+        <div class="mt-4 grid gap-3">
+          <input 
+            type="password" 
+            id="geminiApiKeyInput" 
+            placeholder="Paste your Google AI API key here" 
+            class="field bg-white" 
+          />
+          <button 
+            onclick="saveGeminiApiKey()" 
+            class="min-h-[52px] rounded-full bg-blue-600 px-5 text-sm font-extrabold text-white hover:bg-blue-700 transition"
+          >
+            💾 Save API Key
+          </button>
+          <div id="apiKeyStatus" class="text-xs text-gray-600">No API key configured yet</div>
+        </div>
+      </div>
+
+      <!-- Add Product Section -->
       <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200">
         <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">Add product</p>
         <h2 class="mt-2 text-2xl font-black text-slate-950">New product details</h2>
@@ -51,11 +75,32 @@
             <option value="water-pump">Water Pumps</option>
             <option value="chainsaw">Chainsaws</option>
           </select>
-          <input type="file" id="productImage" accept="image/*" class="field" required />
-          <button type="submit" class="min-h-[52px] rounded-full bg-field-700 px-5 text-sm font-extrabold text-white hover:bg-field-900 md:col-span-2">Add Product</button>
+          <input type="file" id="productImage" accept="image/*" class="field md:col-span-2" required />
+          
+          <!-- AI Generate Button -->
+          <button 
+            type="button" 
+            id="aiGenerateDescBtn" 
+            onclick="generateProductDescription()" 
+            class="min-h-[52px] rounded-full bg-purple-600 px-5 text-sm font-extrabold text-white hover:bg-purple-700 transition md:col-span-2"
+          >
+            ✨ Generate Description with AI
+          </button>
+          
+          <!-- Loading Spinner -->
+          <div id="aiLoadingSpinner" class="hidden md:col-span-2 flex items-center gap-2">
+            <div class="w-4 h-4 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-sm text-purple-600 font-bold">Generating description...</span>
+          </div>
+          
+          <!-- AI Generated Description Display -->
+          <div id="aiGeneratedDescription" class="md:col-span-2"></div>
+          
+          <button type="submit" class="min-h-[52px] rounded-full bg-field-700 px-5 text-sm font-extrabold text-white hover:bg-field-900 md:col-span-2">➕ Add Product</button>
         </form>
       </div>
 
+      <!-- Current Products Section -->
       <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200">
         <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">Current products</p>
         <h2 class="mt-2 text-2xl font-black text-slate-950">Local admin products</h2>
@@ -68,6 +113,7 @@
     window.KV_SKIP_LAYOUT = true;
   </script>
   <script src="kv-layout.js"></script>
+  <script src="admin-ai-config.js"></script>
   <script>
     const form = document.getElementById("productForm");
     const nameInput = document.getElementById("productName");
@@ -122,6 +168,7 @@
         });
         localStorage.setItem("products", JSON.stringify(productList));
         form.reset();
+        document.getElementById("aiGeneratedDescription").innerHTML = "";
         renderAdminList();
       };
 

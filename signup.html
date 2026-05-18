@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Customer Account | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="kv-theme.css" />
+</head>
+<body class="kv-site min-h-screen">
+  <header class="kv-shell-header">
+    <div class="kv-shell-inner">
+      <div class="kv-shell-row">
+        <a href="index.html" class="kv-brand">
+          <img src="images/kv.png" alt="KisanValley Logo">
+          <span>
+            <span class="kv-brand-title">KisanValley</span>
+            <span class="kv-brand-subtitle">Farm machinery store</span>
+          </span>
+        </a>
+        <nav class="kv-shell-nav">
+          <a href="index.html">Home</a>
+          <a href="login.html">Login</a>
+          <a href="cart.html" class="cart-counter">Cart</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="kv-page-hero">
+      <div class="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
+        <p class="inline-flex rounded-full bg-white/12 px-4 py-2 text-sm font-bold text-green-50 ring-1 ring-white/20">Customer account</p>
+        <h1 class="mt-5 text-4xl font-black tracking-tight sm:text-5xl">Create your KisanValley account.</h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-green-50">Save contact and delivery details for faster checkout and smoother order support.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-white p-6 shadow-lift ring-1 ring-slate-200 sm:p-8">
+        <form id="signupForm" class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="name" class="mb-2 block text-sm font-black text-slate-700">Full Name</label>
+            <input type="text" id="name" class="field" placeholder="Your name" required />
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-sm font-black text-slate-700">Email</label>
+            <input type="email" id="email" class="field" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="phone" class="mb-2 block text-sm font-black text-slate-700">Phone Number</label>
+            <input type="tel" id="phone" pattern="[0-9]{10}" class="field" placeholder="10-digit mobile number" required />
+          </div>
+          <div>
+            <label for="password" class="mb-2 block text-sm font-black text-slate-700">Password</label>
+            <input type="password" id="password" class="field" placeholder="Minimum 6 characters" required />
+          </div>
+          <div>
+            <label for="confirmPassword" class="mb-2 block text-sm font-black text-slate-700">Confirm Password</label>
+            <input type="password" id="confirmPassword" class="field" placeholder="Repeat password" required />
+          </div>
+          <div class="rounded-2xl bg-field-50 p-4 ring-1 ring-field-100 md:col-span-2">
+            <h2 class="text-lg font-black text-slate-950">Delivery Details</h2>
+            <p class="mt-1 text-sm text-slate-600">Optional now. You can update these later from your account page.</p>
+          </div>
+          <div class="md:col-span-2">
+            <label for="address" class="mb-2 block text-sm font-black text-slate-700">Address</label>
+            <input type="text" id="address" class="field" placeholder="House number, village, road, landmark" />
+          </div>
+          <div>
+            <label for="city" class="mb-2 block text-sm font-black text-slate-700">City</label>
+            <input type="text" id="city" class="field" placeholder="City" />
+          </div>
+          <div>
+            <label for="state" class="mb-2 block text-sm font-black text-slate-700">State</label>
+            <input type="text" id="state" class="field" placeholder="State" />
+          </div>
+          <div>
+            <label for="pincode" class="mb-2 block text-sm font-black text-slate-700">Pincode</label>
+            <input type="text" id="pincode" pattern="[0-9]{6}" class="field" placeholder="6-digit pincode" />
+          </div>
+          <div>
+            <label for="country" class="mb-2 block text-sm font-black text-slate-700">Country</label>
+            <input type="text" id="country" value="India" class="field" />
+          </div>
+          <div class="md:col-span-2">
+            <button id="signupButton" type="submit" class="min-h-[52px] w-full rounded-full bg-field-700 px-5 text-sm font-extrabold text-white shadow-soft hover:bg-field-900 disabled:bg-slate-400">Create Account</button>
+          </div>
+        </form>
+
+        <div id="resultMessage" class="mt-4 hidden rounded-2xl p-4 text-center text-sm font-bold"></div>
+        <p class="mt-6 text-center text-sm text-slate-600">
+          Already have an account?
+          <a href="login.html" class="font-black text-field-700 hover:text-field-900">Login</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const signupForm = document.getElementById("signupForm");
+    const result = document.getElementById("resultMessage");
+    const signupButton = document.getElementById("signupButton");
+
+    function showMessage(message, isSuccess = false) {
+      result.textContent = message;
+      result.classList.remove("hidden", "bg-red-50", "text-red-700", "bg-green-50", "text-green-700");
+      result.classList.add(isSuccess ? "bg-green-50" : "bg-red-50", isSuccess ? "text-green-700" : "text-red-700");
+    }
+
+    signupForm.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const address = document.getElementById("address").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const state = document.getElementById("state").value.trim();
+      const pincode = document.getElementById("pincode").value.trim();
+      const country = document.getElementById("country").value.trim();
+
+      if (!name || !email || !phone || !password || !confirmPassword) {
+        showMessage("All required fields must be filled.");
+        return;
+      }
+
+      if (!/^[0-9]{10}$/.test(phone)) {
+        showMessage("Please enter a valid 10-digit phone number.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showMessage("Passwords do not match.");
+        return;
+      }
+
+      if (password.length < 6) {
+        showMessage("Password must be at least 6 characters.");
+        return;
+      }
+
+      if (pincode && !/^[0-9]{6}$/.test(pincode)) {
+        showMessage("Please enter a valid 6-digit pincode.");
+        return;
+      }
+
+      signupButton.disabled = true;
+      signupButton.textContent = "Creating account...";
+
+      try {
+        await createCustomerAccount({ name, email, phone, password, address, city, state, pincode, country });
+        showMessage("Account created successfully. Redirecting...", true);
+        setTimeout(() => {
+          window.location.href = "account.html";
+        }, 900);
+      } catch (error) {
+        showMessage(error.message || "Unable to create account.");
+      } finally {
+        signupButton.disabled = false;
+        signupButton.textContent = "Create Account";
+      }
+    });
+  </script>
+  <script src="kv-layout.js"></script>
+</body>
+</html>

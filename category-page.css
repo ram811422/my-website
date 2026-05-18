@@ -1,0 +1,153 @@
+:root {
+  --category-field-50: #f5f8ef;
+  --category-field-100: #e6efd7;
+  --category-field-600: #3f7d20;
+  --category-field-700: #316319;
+  --category-field-900: #19330d;
+  --category-harvest: #e9b949;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-page {
+  min-width: 320px;
+}
+
+.category-card {
+  animation: fadeInUp 0.35s ease-out both;
+}
+
+.product-card {
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--category-field-600);
+  box-shadow: 0 22px 55px rgba(27, 40, 20, 0.16);
+}
+
+.product-image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.product-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image-wrap img {
+  transform: scale(1.04);
+}
+
+.category-nav-link,
+.category-cart-link,
+.category-profile-link {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.category-nav-link:hover {
+  background: var(--category-field-50);
+  color: var(--category-field-700);
+}
+
+.category-cart-link {
+  background: var(--category-field-900);
+  color: #fff;
+}
+
+.category-cart-link:hover {
+  background: var(--category-field-700);
+  color: #fff;
+}
+
+.category-profile-link {
+  gap: 0.45rem;
+  background: var(--category-field-50);
+  color: var(--category-field-700);
+  box-shadow: inset 0 0 0 1px var(--category-field-100);
+}
+
+.category-profile-initials {
+  display: inline-flex;
+  width: 1.7rem;
+  height: 1.7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--category-field-600);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.category-page input:focus,
+.category-page select:focus {
+  border-color: var(--category-field-600);
+  box-shadow: 0 0 0 4px rgba(230, 239, 215, 0.95);
+}
+
+.bg-field-50 { background-color: var(--category-field-50); }
+.bg-field-100 { background-color: var(--category-field-100); }
+.bg-field-600 { background-color: var(--category-field-600); }
+.bg-field-700 { background-color: var(--category-field-700); }
+.bg-field-900 { background-color: var(--category-field-900); }
+.bg-harvest { background-color: var(--category-harvest); }
+.text-field-50 { color: var(--category-field-50); }
+.text-field-100 { color: var(--category-field-100); }
+.text-field-600 { color: var(--category-field-600); }
+.text-field-700 { color: var(--category-field-700); }
+.text-field-900 { color: var(--category-field-900); }
+.shadow-soft { box-shadow: 0 18px 45px rgba(27, 40, 20, 0.10); }
+.shadow-lift { box-shadow: 0 22px 55px rgba(27, 40, 20, 0.16); }
+
+.from-field-900 {
+  --tw-gradient-from: var(--category-field-900) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(25, 51, 13, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-field-900\/90 {
+  --tw-gradient-to: rgba(25, 51, 13, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(25, 51, 13, 0.9) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.to-field-900\/55 {
+  --tw-gradient-to: rgba(25, 51, 13, 0.55) var(--tw-gradient-to-position);
+}
+
+.hover\:bg-field-50:hover { background-color: var(--category-field-50); }
+.hover\:bg-field-700:hover { background-color: var(--category-field-700); }
+.hover\:bg-field-900:hover { background-color: var(--category-field-900); }
+.hover\:text-field-700:hover { color: var(--category-field-700); }
+.hover\:bg-yellow-300:hover { background-color: #fde047; }
+
+@media (max-width: 520px) {
+  .category-header nav {
+    width: 100%;
+  }
+
+  .category-profile-link {
+    display: none;
+  }
+}

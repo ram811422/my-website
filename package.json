@@ -1,0 +1,9 @@
+{
+  "name": "kisanvalley",
+  "private": true,
+  "version": "1.0.0",
+  "description": "KisanValley storefront with Vercel API checkout.",
+  "dependencies": {
+    "firebase": "^12.13.0"
+  }
+}

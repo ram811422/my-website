@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Order | KisanValley</title>
+  <meta name="description" content="Track your KisanValley order status using your order ID." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="kv-theme.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            field: {
+              50: "#f5f8ef",
+              100: "#e6efd7",
+              600: "#3f7d20",
+              700: "#316319",
+              900: "#19330d"
+            },
+            harvest: "#e9b949"
+          },
+          boxShadow: {
+            soft: "0 18px 45px rgba(27, 40, 20, 0.10)",
+            lift: "0 22px 55px rgba(27, 40, 20, 0.16)"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#f7f8f3] text-slate-900 antialiased">
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <a href="index.html" class="flex items-center gap-3" aria-label="KisanValley home">
+        <img src="images/kv.png" alt="KisanValley Logo" class="h-11 w-11 rounded-lg object-contain" />
+        <div>
+          <p class="text-xl font-extrabold tracking-tight text-field-900">KisanValley</p>
+          <p class="hidden text-xs font-medium uppercase tracking-[0.22em] text-slate-500 sm:block">Farm machinery store</p>
+        </div>
+      </a>
+
+      <nav class="flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-700" aria-label="Primary navigation">
+        <a href="index.html" class="rounded-full px-4 py-2 hover:bg-field-50 hover:text-field-700">Home</a>
+        <a href="index.html#products" class="rounded-full px-4 py-2 hover:bg-field-50 hover:text-field-700">Products</a>
+        <a href="services.html" class="rounded-full px-4 py-2 hover:bg-field-50 hover:text-field-700">Services</a>
+        <a href="wishlist.html" class="wishlist-counter rounded-full px-4 py-2 hover:bg-field-50 hover:text-field-700">Wishlist</a>
+        <a href="cart.html" class="cart-counter rounded-full bg-field-900 px-4 py-2 text-white hover:bg-field-700">Cart</a>
+        <a href="login.html" class="profile-link inline-flex items-center gap-2 rounded-full bg-field-50 px-3 py-2 text-field-700 ring-1 ring-field-100 hover:bg-field-100" aria-label="Open customer dashboard">
+          <span class="profile-initials flex h-7 w-7 items-center justify-center rounded-full bg-field-600 text-xs font-bold text-white">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21a8 8 0 1 0-16 0" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+            </svg>
+          </span>
+          <span class="profile-label">Login</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="relative overflow-hidden bg-field-900 text-white">
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-20">
+        <div class="flex flex-col justify-center">
+          <p class="mb-5 inline-flex w-fit rounded-full bg-white/12 px-4 py-2 text-sm font-bold text-field-50 ring-1 ring-white/20">Order tracking</p>
+          <h1 class="text-4xl font-black tracking-tight sm:text-5xl">Know where your farm equipment order stands.</h1>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-field-50">Enter your KisanValley order ID to view saved order details, payment method, total amount, and current status.</p>
+          <div class="mt-8 grid max-w-xl gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
+              <p class="text-2xl font-black">01</p>
+              <p class="mt-1 text-sm font-semibold text-field-100">Find order ID</p>
+            </div>
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
+              <p class="text-2xl font-black">02</p>
+              <p class="mt-1 text-sm font-semibold text-field-100">Track status</p>
+            </div>
+            <div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
+              <p class="text-2xl font-black">03</p>
+              <p class="mt-1 text-sm font-semibold text-field-100">Contact support</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="rounded-3xl bg-white p-5 text-slate-900 shadow-lift sm:p-7" aria-labelledby="track-heading">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">Track package</p>
+              <h2 id="track-heading" class="mt-2 text-2xl font-black tracking-tight sm:text-3xl">Enter your order ID</h2>
+            </div>
+            <span class="w-fit rounded-full bg-field-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-field-700">Secure lookup</span>
+          </div>
+
+          <form id="trackForm" class="mt-6 grid gap-3 sm:grid-cols-[1fr_auto]">
+            <label class="sr-only" for="orderId">Order ID</label>
+            <input
+              id="orderId"
+              type="text"
+              required
+              autocomplete="off"
+              placeholder="Example: KV-LA1234-ABCDEF"
+              class="min-h-[52px] rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-field-600 focus:bg-white focus:ring-4 focus:ring-field-100"
+            />
+            <button class="rounded-2xl bg-field-700 px-7 py-4 text-sm font-extrabold text-white shadow-soft hover:bg-field-900">Track Order</button>
+          </form>
+          <div class="mt-3 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
+            <span>Order IDs start with KV-</span>
+            <button id="clearTrackButton" type="button" class="hidden text-field-700 hover:text-field-900">Clear result</button>
+          </div>
+
+          <div id="recentOrders" class="mt-5"></div>
+          <div id="trackResult" class="mt-6" aria-live="polite"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:px-8">
+      <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200 sm:p-8">
+        <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">Tracking guide</p>
+        <h2 class="mt-3 text-3xl font-black tracking-tight text-slate-950">What your status means</h2>
+        <div class="mt-8 space-y-6">
+          <div class="grid gap-4 sm:grid-cols-[auto_1fr]">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-field-700 text-sm font-black text-white">1</span>
+            <div>
+              <h3 class="font-black">Received</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-600">Your order was placed successfully and is being prepared for review.</p>
+            </div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-[auto_1fr]">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-harvest text-sm font-black text-field-900">2</span>
+            <div>
+              <h3 class="font-black">Processing</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-600">The team is confirming item availability, payment details, and dispatch readiness.</p>
+            </div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-[auto_1fr]">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-sm font-black text-white">3</span>
+            <div>
+              <h3 class="font-black">Dispatched</h3>
+              <p class="mt-1 text-sm leading-6 text-slate-600">Your machinery has moved out for delivery or handover with the listed order ID.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="grid gap-6">
+        <div class="rounded-3xl bg-field-50 p-6 shadow-soft ring-1 ring-field-100 sm:p-8">
+          <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">Need assistance?</p>
+          <h2 class="mt-3 text-2xl font-black tracking-tight text-slate-950">Keep your order ID ready when contacting support.</h2>
+          <p class="mt-4 text-sm leading-6 text-slate-600">For dispatch updates, payment confirmation, or delivery questions, share your exact order ID with the KisanValley support team.</p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a href="contact.html" class="inline-flex h-12 items-center justify-center rounded-full bg-field-700 px-6 text-sm font-extrabold text-white hover:bg-field-900">Contact Support</a>
+            <a href="return-policy.html" class="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-extrabold text-field-700 ring-1 ring-field-100 hover:bg-field-100">Return Policy</a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200 sm:p-8">
+          <h2 class="text-2xl font-black tracking-tight text-slate-950">Where to find your order ID</h2>
+          <p class="mt-4 text-sm leading-6 text-slate-600">Your order ID appears on the order success page after checkout. Recent order IDs saved on this device also appear above the tracking result.</p>
+          <a href="order-success.html" class="mt-5 inline-flex text-sm font-extrabold text-field-700 hover:text-field-900">Open order success page</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bg-slate-950 text-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm text-slate-400 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="flex items-center gap-3">
+        <img class="h-10 w-10 rounded-lg object-contain" src="images/kv.png" alt="KisanValley Logo" />
+        <div>
+          <p class="font-black text-white">KisanValley</p>
+          <p>Quality agricultural machinery and support.</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap gap-4">
+        <a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a>
+        <a href="terms.html" class="hover:text-white">Terms</a>
+        <a href="contact.html" class="hover:text-white">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script src="wishlist.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const form = document.getElementById("trackForm");
+    const orderIdInput = document.getElementById("orderId");
+    const result = document.getElementById("trackResult");
+    const recentOrders = document.getElementById("recentOrders");
+    const clearTrackButton = document.getElementById("clearTrackButton");
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function readSavedOrders() {
+      try {
+        const orders = JSON.parse(localStorage.getItem("kvOrderIds") || "[]");
+        return Array.isArray(orders) ? orders.filter(order => order && order.id) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRecentOrder(orderId) {
+      const cleanId = String(orderId || "").trim();
+      if (!cleanId) return;
+
+      const orders = readSavedOrders();
+      const nextOrders = [
+        { id: cleanId, createdAt: new Date().toISOString() },
+        ...orders.filter(order => order.id !== cleanId)
+      ].slice(0, 10);
+      localStorage.setItem("kvOrderIds", JSON.stringify(nextOrders));
+      renderRecentOrders();
+    }
+
+    function formatDate(value) {
+      if (!value) return "Not available";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Not available";
+      return date.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function formatCurrency(value) {
+      const amount = Number(value || 0);
+      return amount ? `Rs. ${amount.toLocaleString("en-IN")}` : "Not available";
+    }
+
+    function statusLabel(status) {
+      const cleanStatus = String(status || "pending").toLowerCase();
+      if (cleanStatus.includes("awaiting")) return "Awaiting Payment";
+      if (cleanStatus.includes("paid")) return "Paid";
+      if (cleanStatus.includes("dispatch") || cleanStatus.includes("ship")) return "Dispatched";
+      if (cleanStatus.includes("deliver")) return "Delivered";
+      if (cleanStatus.includes("process") || cleanStatus.includes("confirm") || cleanStatus.includes("pack")) return "Processing";
+      if (cleanStatus.includes("cancel")) return "Cancelled";
+      if (cleanStatus.includes("pending")) return "Received";
+      return String(status || "Received");
+    }
+
+    function paymentLabel(method, status) {
+      if (method === "cod") return "Cash on Delivery";
+      if (method === "online") return String(status || "").toLowerCase() === "paid" ? "Paid online" : "Online payment";
+      return method || "Not available";
+    }
+
+    function getProgressStep(status) {
+      const cleanStatus = String(status || "pending").toLowerCase();
+      if (cleanStatus.includes("deliver")) return 4;
+      if (cleanStatus.includes("dispatch") || cleanStatus.includes("ship")) return 3;
+      if (cleanStatus.includes("process") || cleanStatus.includes("confirm") || cleanStatus.includes("pack")) return 2;
+      return 1;
+    }
+
+    function renderStatusTimeline(status) {
+      const currentStep = getProgressStep(status);
+      const steps = ["Received", "Processing", "Dispatched", "Delivered"];
+      return `
+        <div class="mt-5 grid gap-3 sm:grid-cols-4">
+          ${steps.map((step, index) => {
+            const active = index + 1 <= currentStep;
+            return `
+              <div class="rounded-2xl ${active ? "bg-field-700 text-white" : "bg-white text-slate-500 ring-1 ring-slate-200"} p-4">
+                <span class="text-xs font-black uppercase tracking-wide">${index + 1 < currentStep ? "Complete" : index + 1 === currentStep ? "Current" : "Next"}</span>
+                <p class="mt-1 font-black">${step}</p>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function renderItems(items = []) {
+      if (!Array.isArray(items) || items.length === 0) return "";
+
+      return `
+        <div class="mt-5 border-t border-field-100 pt-5">
+          <h3 class="text-lg font-black text-slate-950">Items in this order</h3>
+          <div class="mt-3 space-y-3">
+            ${items.map(item => `
+              <div class="flex items-center justify-between gap-4 rounded-2xl bg-white p-4 ring-1 ring-field-100">
+                <div class="min-w-0">
+                  <p class="font-black text-slate-950">${escapeHtml(item.name || item.id || "Product")}</p>
+                  <p class="mt-1 text-xs font-bold text-slate-500">Qty ${escapeHtml(item.quantity || 1)} x ${formatCurrency(item.price)}</p>
+                </div>
+                <p class="shrink-0 font-black text-slate-950">${formatCurrency(item.lineTotal || Number(item.price || 0) * Number(item.quantity || 1))}</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderRecentOrders() {
+      const orders = readSavedOrders();
+      if (orders.length === 0) {
+        recentOrders.innerHTML = `
+          <div class="rounded-2xl bg-slate-50 p-4 text-sm text-slate-600 ring-1 ring-slate-200">
+            No recent order IDs are saved in this browser yet.
+          </div>
+        `;
+        return;
+      }
+
+      recentOrders.innerHTML = `
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <p class="text-sm font-black text-slate-800">Recent orders on this device</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${orders.map(order => {
+              const id = escapeHtml(order.id);
+              return `<button type="button" data-order-id="${id}" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:border-field-600 hover:text-field-700">${id}</button>`;
+            }).join("")}
+          </div>
+        </div>
+      `;
+
+      recentOrders.querySelectorAll("[data-order-id]").forEach(button => {
+        button.addEventListener("click", () => trackOrder(button.dataset.orderId));
+      });
+    }
+
+    function renderOrderCard(order, options = {}) {
+      const status = order.status || "pending";
+      const label = statusLabel(status);
+      const orderIdLabel = escapeHtml(order.id || order.orderId || options.orderId || "");
+      const paymentMethod = escapeHtml(paymentLabel(order.paymentMethod, status));
+      const createdAt = formatDate(order.createdAt);
+      const total = formatCurrency(order.total || order.amount);
+      const sourceNote = options.localOnly
+        ? "This order ID is saved on this device. Live tracking details are not available right now."
+        : "Live order details loaded successfully.";
+
+      result.innerHTML = `
+        <article class="rounded-3xl border border-field-100 bg-field-50 p-5 shadow-soft">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.2em] text-field-600">${options.localOnly ? "Saved order" : "Order found"}</p>
+              <h2 class="mt-2 break-words font-mono text-2xl font-black text-slate-950">${orderIdLabel}</h2>
+            </div>
+            <span class="w-fit rounded-full bg-white px-4 py-2 text-sm font-black text-field-700 ring-1 ring-field-100">${escapeHtml(label)}</span>
+          </div>
+          ${renderStatusTimeline(status)}
+          <dl class="mt-5 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-field-100">
+              <dt class="text-xs font-black uppercase tracking-wide text-slate-500">Payment</dt>
+              <dd class="mt-1 font-black text-slate-950">${paymentMethod}</dd>
+            </div>
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-field-100">
+              <dt class="text-xs font-black uppercase tracking-wide text-slate-500">Total</dt>
+              <dd class="mt-1 font-black text-slate-950">${total}</dd>
+            </div>
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-field-100">
+              <dt class="text-xs font-black uppercase tracking-wide text-slate-500">Placed</dt>
+              <dd class="mt-1 font-black text-slate-950">${escapeHtml(createdAt)}</dd>
+            </div>
+          </dl>
+          ${renderItems(order.items)}
+          <div class="mt-5 flex flex-col gap-3 rounded-2xl bg-white p-4 text-sm leading-6 text-slate-600 ring-1 ring-field-100 sm:flex-row sm:items-center sm:justify-between">
+            <p>${escapeHtml(sourceNote)}</p>
+            <button type="button" data-copy-order="${orderIdLabel}" class="shrink-0 rounded-full bg-field-700 px-4 py-2 text-sm font-extrabold text-white hover:bg-field-900">Copy ID</button>
+          </div>
+        </article>
+      `;
+
+      result.querySelector("[data-copy-order]")?.addEventListener("click", async event => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(button.dataset.copyOrder);
+          button.textContent = "Copied";
+          setTimeout(() => { button.textContent = "Copy ID"; }, 1400);
+        } catch {
+          button.textContent = "Copy failed";
+          setTimeout(() => { button.textContent = "Copy ID"; }, 1400);
+        }
+      });
+      clearTrackButton.classList.remove("hidden");
+    }
+
+    function renderError(message) {
+      result.innerHTML = `
+        <div class="rounded-3xl border border-red-100 bg-red-50 p-5 shadow-soft">
+          <p class="text-sm font-black uppercase tracking-[0.2em] text-red-600">Unable to track</p>
+          <h2 class="mt-2 text-xl font-black text-red-900">${escapeHtml(message || "Unable to track this order.")}</h2>
+          <p class="mt-3 text-sm leading-6 text-red-800">Check the order ID and try again. If the issue continues, contact support with your checkout details.</p>
+          <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+            <a href="contact.html" class="inline-flex h-11 items-center justify-center rounded-full bg-red-700 px-5 text-sm font-extrabold text-white hover:bg-red-800">Contact Support</a>
+            <a href="index.html#products" class="inline-flex h-11 items-center justify-center rounded-full bg-white px-5 text-sm font-extrabold text-red-700 ring-1 ring-red-100 hover:bg-red-100">Back to Products</a>
+          </div>
+        </div>
+      `;
+      clearTrackButton.classList.remove("hidden");
+    }
+
+    function findSavedOrder(orderId) {
+      return readSavedOrders().find(order => String(order.id).toLowerCase() === String(orderId).toLowerCase());
+    }
+
+    async function trackOrder(orderId) {
+      const cleanId = String(orderId || "").trim();
+      if (!cleanId) return;
+
+      orderIdInput.value = cleanId;
+      result.innerHTML = `
+        <div class="rounded-2xl bg-field-50 p-5 font-bold text-field-700 ring-1 ring-field-100">
+          Checking order details...
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`/api/get-order?id=${encodeURIComponent(cleanId)}`);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "Order not found.");
+
+        saveRecentOrder(data.id || data.orderId || cleanId);
+        renderOrderCard(data, { orderId: cleanId });
+      } catch (err) {
+        const savedOrder = findSavedOrder(cleanId);
+        if (savedOrder) {
+          renderOrderCard(
+            { id: savedOrder.id, createdAt: savedOrder.createdAt, status: "pending" },
+            { localOnly: true, orderId: cleanId }
+          );
+          return;
+        }
+        renderError(err.message);
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      trackOrder(orderIdInput.value);
+    });
+
+    const initialId = new URLSearchParams(window.location.search).get("id");
+    renderRecentOrders();
+    if (initialId) trackOrder(initialId);
+
+    clearTrackButton.addEventListener("click", () => {
+      orderIdInput.value = "";
+      result.innerHTML = "";
+      clearTrackButton.classList.add("hidden");
+      orderIdInput.focus();
+    });
+  </script>
+  <script src="kv-layout.js"></script>
+</body>
+</html>

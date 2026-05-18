@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Support - KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="kv-theme.css" />
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <a href="index.html" class="flex items-center space-x-4">
+        <img src="images/kv.png" alt="KisanValley Logo" class="w-12 h-auto">
+        <h1 class="text-2xl font-bold">Kisan Valley</h1>
+      </a>
+    </div>
+    <div class="flex-1 mx-6 hidden md:block">
+      <div class="relative max-w-xl w-full mx-auto">
+        <input
+          type="text"
+          placeholder="Search agricultural products..."
+          class="w-full border border-gray-300 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
+        />
+      </div>
+    </div>
+    <nav class="space-x-4">
+      <a href="login.html" class="text-blue-600">Login</a>
+      <a href="cart.html" class="text-blue-600 cart-counter">Cart</a>
+    </nav>
+  </header>
+
+  <nav class="bg-green-600 text-white p-3 flex flex-wrap justify-center gap-x-6 gap-y-2">
+    <a href="index.html#home" class="hover:underline">Home</a>
+    <a href="about.html" class="hover:underline">About Us</a>
+    <a href="services.html" class="hover:underline">Services</a>
+    <a href="return-policy.html" class="hover:underline">Return Policy</a>
+    <a href="track-order.html" class="hover:underline">Track Order</a>
+    <a href="index.html#products" class="hover:underline">Products</a>
+    <a href="contact.html" class="font-semibold underline">Contact</a>
+  </nav>
+
+  <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <section class="mb-8 rounded-lg bg-green-700 px-6 py-10 text-white shadow-md">
+      <p class="text-sm font-semibold uppercase tracking-wide text-green-100">KisanValley Support</p>
+      <h1 class="mt-2 text-3xl font-bold md:text-4xl">Contact Customer Support</h1>
+      <p class="mt-3 max-w-2xl text-green-50">Get help with product selection, orders, damaged delivery claims, service questions, and farm machinery support.</p>
+    </section>
+
+    <section class="grid gap-8 lg:grid-cols-3">
+      <div class="lg:col-span-2">
+        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-md">
+          <h2 class="text-2xl font-bold text-gray-900">Send Us a Message</h2>
+          <form id="contactForm" class="mt-6 grid gap-5" novalidate>
+            <div class="grid gap-5 md:grid-cols-2">
+              <div>
+                <label for="name" class="block text-sm font-semibold text-gray-700">Full Name</label>
+                <input id="name" name="name" type="text" required minlength="2" class="mt-2 w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <p class="mt-1 hidden text-sm font-semibold text-red-600" data-error-for="name"></p>
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-semibold text-gray-700">Phone Number</label>
+                <input id="phone" name="phone" type="tel" required pattern="[0-9+\s-]{10,15}" class="mt-2 w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <p class="mt-1 hidden text-sm font-semibold text-red-600" data-error-for="phone"></p>
+              </div>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <div>
+                <label for="email" class="block text-sm font-semibold text-gray-700">Email Address</label>
+                <input id="email" name="email" type="email" required class="mt-2 w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <p class="mt-1 hidden text-sm font-semibold text-red-600" data-error-for="email"></p>
+              </div>
+              <div>
+                <label for="topic" class="block text-sm font-semibold text-gray-700">Support Topic</label>
+                <select id="topic" name="topic" class="mt-2 w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                  <option>Product Enquiry</option>
+                  <option>Order Support</option>
+                  <option>Return or Damage Claim</option>
+                  <option>Service Support</option>
+                  <option>Part Availability</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-semibold text-gray-700">Message</label>
+              <textarea id="message" name="message" rows="6" required minlength="10" class="mt-2 w-full rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+              <p class="mt-1 hidden text-sm font-semibold text-red-600" data-error-for="message"></p>
+            </div>
+
+            <button id="contactSubmitBtn" type="submit" class="w-fit rounded bg-green-600 px-6 py-3 font-semibold text-white shadow hover:bg-green-700">Submit Request</button>
+            <p id="formStatus" class="hidden rounded bg-green-50 p-3 text-sm font-semibold text-green-800"></p>
+          </form>
+        </div>
+      </div>
+
+      <aside class="space-y-5">
+        <a href="https://wa.me/919208567906?text=Hello%20KisanValley%20Support%2C%20I%20need%20help." target="_blank" rel="noopener" class="block rounded-lg border border-green-200 bg-white p-5 shadow-md hover:border-green-500">
+          <h2 class="text-lg font-bold text-green-800">WhatsApp Support</h2>
+          <p class="mt-2 text-gray-600">Chat with our support team for fast product and order help.</p>
+          <p class="mt-3 font-semibold text-green-700">+91 92085 67906</p>
+        </a>
+
+        <a href="mailto:kisanvalleyservices@gmail.com" class="block rounded-lg border border-blue-100 bg-white p-5 shadow-md hover:border-blue-400">
+          <h2 class="text-lg font-bold text-blue-800">Email Support</h2>
+          <p class="mt-2 text-gray-600">Send order details, product photos, or service questions.</p>
+          <p class="mt-3 font-semibold text-blue-700">kisanvalleyservices@gmail.com</p>
+        </a>
+
+        <a href="tel:+919208567906" class="block rounded-lg border border-amber-100 bg-white p-5 shadow-md hover:border-amber-400">
+          <h2 class="text-lg font-bold text-amber-800">Direct Call Support</h2>
+          <p class="mt-2 text-gray-600">Speak directly with KisanValley customer care.</p>
+          <p class="mt-3 font-semibold text-amber-700">+91 92085 67906</p>
+        </a>
+
+        <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-md">
+          <h2 class="text-lg font-bold text-gray-900">Social Media</h2>
+          <div class="mt-4 grid gap-3">
+            <a href="https://www.facebook.com/kisanvalley" target="_blank" rel="noopener" class="rounded border border-gray-200 px-4 py-2 font-semibold text-gray-700 hover:border-green-500 hover:text-green-700">Facebook</a>
+            <a href="https://www.instagram.com/kisanvalley" target="_blank" rel="noopener" class="rounded border border-gray-200 px-4 py-2 font-semibold text-gray-700 hover:border-green-500 hover:text-green-700">Instagram</a>
+            <a href="https://www.youtube.com/@kisanvalley" target="_blank" rel="noopener" class="rounded border border-gray-200 px-4 py-2 font-semibold text-gray-700 hover:border-green-500 hover:text-green-700">YouTube</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-white" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-4">
+        <div>
+          <div class="flex items-center">
+            <img class="h-10 w-auto" src="images/kv.png" alt="KisanValley Logo">
+            <span class="ml-3 text-2xl font-bold">KisanValley</span>
+          </div>
+          <p class="mt-4 text-gray-400">Your trusted partner for high-quality agricultural machinery.</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-200">Quick Links</h3>
+          <ul class="mt-4 space-y-3 text-gray-400">
+            <li><a href="index.html" class="hover:text-white">Home</a></li>
+            <li><a href="index.html#products" class="hover:text-white">Products</a></li>
+            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-200">Support</h3>
+          <ul class="mt-4 space-y-3 text-gray-400">
+            <li><a href="tel:+919208567906" class="hover:text-white">Call Support</a></li>
+            <li><a href="https://wa.me/919208567906" target="_blank" rel="noopener" class="hover:text-white">WhatsApp Support</a></li>
+            <li><a href="return-policy.html" class="hover:text-white">Return Policy</a></li>
+            <li><a href="track-order.html" class="hover:text-white">Track Order</a></li>
+            <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="terms.html" class="hover:text-white">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-200">Social</h3>
+          <ul class="mt-4 space-y-3 text-gray-400">
+            <li><a href="https://www.facebook.com/kisanvalley" target="_blank" rel="noopener" class="hover:text-white">Facebook</a></li>
+            <li><a href="https://www.instagram.com/kisanvalley" target="_blank" rel="noopener" class="hover:text-white">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@kisanvalley" target="_blank" rel="noopener" class="hover:text-white">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-400">&copy; 2026 KisanValley. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script>
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("contactSubmitBtn");
+
+    function setFieldError(field, message) {
+      const error = document.querySelector(`[data-error-for="${field}"]`);
+      const input = document.getElementById(field);
+      if (!error || !input) return;
+      error.textContent = message || "";
+      error.classList.toggle("hidden", !message);
+      input.classList.toggle("border-red-500", Boolean(message));
+    }
+
+    function validateContact(payload) {
+      const errors = {};
+      if (!payload.name || payload.name.length < 2) errors.name = "Enter your full name.";
+      if (!/^[0-9+\s-]{10,15}$/.test(payload.phone)) errors.phone = "Enter a valid 10-15 digit phone number.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) errors.email = "Enter a valid email address.";
+      if (!payload.message || payload.message.length < 10) errors.message = "Message must be at least 10 characters.";
+      return errors;
+    }
+
+    function setStatus(message, type = "success") {
+      formStatus.textContent = message;
+      formStatus.classList.remove("hidden", "bg-green-50", "text-green-800", "bg-red-50", "text-red-700");
+      formStatus.classList.add(type === "error" ? "bg-red-50" : "bg-green-50", type === "error" ? "text-red-700" : "text-green-800");
+    }
+
+    contactForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const payload = {
+        name: formData.get("name").trim(),
+        phone: formData.get("phone").trim(),
+        email: formData.get("email").trim(),
+        topic: formData.get("topic").trim(),
+        message: formData.get("message").trim()
+      };
+
+      ["name", "phone", "email", "message"].forEach(field => setFieldError(field, ""));
+      const errors = validateContact(payload);
+      Object.entries(errors).forEach(([field, message]) => setFieldError(field, message));
+      if (Object.keys(errors).length > 0) {
+        setStatus("Please fix the highlighted fields.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      try {
+        const res = await fetch("/api/contact-submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "Unable to submit request.");
+
+        contactForm.reset();
+        setStatus(`Request submitted successfully. Reference ID: ${data.contactId}`);
+      } catch (err) {
+        const subject = encodeURIComponent(`KisanValley Support: ${payload.topic}`);
+        const body = encodeURIComponent(
+          `Name: ${payload.name}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nTopic: ${payload.topic}\n\nMessage:\n${payload.message}`
+        );
+        setStatus("Online submission is unavailable here. Opening your email app with the request details.", "error");
+        window.location.href = `mailto:kisanvalleyservices@gmail.com?subject=${subject}&body=${body}`;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Request";
+      }
+    });
+  </script>
+  <script src="kv-layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details | KisanValley</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="kv-theme.css" />
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    .product-media {
+      aspect-ratio: 1 / 0.78;
+    }
+
+    .soft-shadow {
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    .service-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #047857;
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .product-media {
+        aspect-ratio: 1 / 0.95;
+      }
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-slate-900">
+  <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex min-w-0 items-center gap-3" aria-label="KisanValley home">
+        <img src="images/kv.png" alt="KisanValley Logo" class="h-11 w-11 rounded-full object-cover">
+        <span class="truncate text-xl font-black tracking-tight text-slate-950">KisanValley</span>
+      </a>
+
+      <nav class="hidden items-center gap-7 text-sm font-bold text-slate-700 md:flex">
+        <a href="index.html" class="hover:text-emerald-700">Home</a>
+        <a href="index.html#products" class="hover:text-emerald-700">Products</a>
+        <a href="services.html" class="hover:text-emerald-700">Services</a>
+        <a href="contact.html" class="hover:text-emerald-700">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="wishlist.html" class="wishlist-counter rounded-full border border-slate-200 px-3 py-2 text-sm font-bold text-slate-700 hover:border-rose-300 hover:text-rose-600">Wishlist</a>
+        <a href="cart.html" class="cart-counter rounded-full bg-slate-950 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-700">Cart</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="productRoot" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"></main>
+
+  <footer class="mt-14 border-t border-slate-200 bg-white">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
+      <div>
+        <div class="flex items-center gap-3">
+          <img src="images/kv.png" alt="KisanValley Logo" class="h-10 w-10 rounded-full object-cover">
+          <span class="text-lg font-black">KisanValley</span>
+        </div>
+        <p class="mt-4 max-w-md text-sm leading-6 text-slate-600">Professional agricultural machinery, farm tools, and support for farmers who need dependable field equipment.</p>
+      </div>
+      <div>
+        <h2 class="text-sm font-black uppercase tracking-wide text-slate-950">Shop</h2>
+        <div class="mt-4 grid gap-3 text-sm font-semibold text-slate-600">
+          <a href="weeder-tiller.html" class="hover:text-emerald-700">Weeders & Tillers</a>
+          <a href="brush-cutters.html" class="hover:text-emerald-700">Brush Cutters</a>
+          <a href="water-pumps.html" class="hover:text-emerald-700">Water Pumps</a>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-sm font-black uppercase tracking-wide text-slate-950">Support</h2>
+        <div class="mt-4 grid gap-3 text-sm font-semibold text-slate-600">
+          <a href="track-order.html" class="hover:text-emerald-700">Track Order</a>
+          <a href="return-policy.html" class="hover:text-emerald-700">Return Policy</a>
+          <a href="contact.html" class="hover:text-emerald-700">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 px-4 py-5 text-center text-sm font-semibold text-slate-500">Copyright 2026 KisanValley. All rights reserved.</div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="cart.js"></script>
+  <script src="wishlist.js"></script>
+  <script src="reviews.js"></script>
+  <script>
+    const root = document.getElementById("productRoot");
+    const params = new URLSearchParams(window.location.search);
+    const product = allSiteProducts[params.get("id")];
+
+    const categoryLabels = {
+      "weeder-tiller": "Weeders & Tillers",
+      "brush-cutter": "Brush Cutters",
+      "earth-auger": "Earth Augers",
+      "water-pump": "Water Pumps",
+      "sprayer": "Sprayers",
+      "chainsaw": "Chainsaws"
+    };
+
+    const categoryPages = {
+      "weeder-tiller": "weeder-tiller.html",
+      "brush-cutter": "brush-cutters.html",
+      "earth-auger": "earth-augers.html",
+      "water-pump": "water-pumps.html",
+      "sprayer": "sprayers.html",
+      "chainsaw": "chainsaws.html"
+    };
+
+    function formatPrice(price) {
+      return `Rs. ${Number(price || 0).toLocaleString("en-IN")}`;
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getCategoryLabel(category) {
+      if (categoryLabels[category]) return categoryLabels[category];
+      return String(category || "Product").split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    }
+
+    function setQuantity(delta) {
+      const input = document.getElementById("quantityInput");
+      if (!input) return;
+      input.value = Math.max(1, Number(input.value || 1) + delta);
+    }
+
+    function addSelectedQuantity(productId) {
+      const input = document.getElementById("quantityInput");
+      const quantity = Math.max(1, Number(input?.value || 1));
+      const cart = typeof getCart === "function" ? getCart() : JSON.parse(localStorage.getItem("cart") || "[]");
+      const existingProductIndex = cart.findIndex(item => item.id === productId);
+
+      if (existingProductIndex > -1) {
+        cart[existingProductIndex].quantity += quantity;
+      } else {
+        cart.push({ id: productId, quantity });
+      }
+
+      if (typeof saveCart === "function") saveCart(cart);
+      else localStorage.setItem("cart", JSON.stringify(cart));
+      if (typeof updateCartCounter === "function") updateCartCounter();
+      if (typeof showCartNotice === "function") {
+        showCartNotice(`${quantity} item${quantity === 1 ? "" : "s"} added to cart`);
+      }
+    }
+
+    function buyNow(productId) {
+      addSelectedQuantity(productId);
+      window.location.href = "checkout.html";
+    }
+
+    function renderRelatedProducts(currentProduct) {
+      return Object.values(allSiteProducts)
+        .filter(item => item.id !== currentProduct.id && item.category === currentProduct.category)
+        .slice(0, 3)
+        .map(item => {
+          const safeName = escapeHtml(item.name);
+          const safeImage = escapeHtml(item.image);
+          const safeUrl = escapeHtml(getProductDetailUrl(item.id));
+          const jsId = escapeHtml(JSON.stringify(String(item.id)));
+          return `
+          <article class="group overflow-hidden rounded-lg border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
+            <a href="${safeUrl}" class="block bg-stone-100">
+              <img src="${safeImage}" alt="${safeName}" class="h-48 w-full object-contain p-5 transition group-hover:scale-105">
+            </a>
+            <div class="p-5">
+              <a href="${safeUrl}" class="block min-h-12 font-black leading-snug text-slate-950 hover:text-emerald-700">${safeName}</a>
+              <p class="mt-3 text-lg font-black text-emerald-700">${formatPrice(item.price)}</p>
+              <div class="mt-4 grid grid-cols-2 gap-2">
+                <a href="${safeUrl}" class="rounded-md border border-slate-300 px-3 py-2 text-center text-sm font-bold text-slate-700 hover:border-emerald-600 hover:text-emerald-700">Details</a>
+                <button type="button" onclick="addToCart(${jsId})" class="rounded-md bg-slate-950 px-3 py-2 text-sm font-bold text-white hover:bg-emerald-700">Add</button>
+              </div>
+            </div>
+          </article>
+        `;
+        }).join("");
+    }
+
+    function renderServiceItem(icon, title, text) {
+      return `
+        <div class="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
+          <span class="service-icon" aria-hidden="true">${icon}</span>
+          <div>
+            <p class="font-black text-slate-950">${title}</p>
+            <p class="mt-1 text-sm leading-6 text-slate-600">${text}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    if (!product) {
+      root.innerHTML = `
+        <section class="my-12 rounded-lg border border-slate-200 bg-white p-10 text-center soft-shadow">
+          <p class="text-sm font-black uppercase tracking-wide text-emerald-700">KisanValley</p>
+          <h1 class="mt-3 text-3xl font-black text-slate-950">Product not found</h1>
+          <p class="mx-auto mt-3 max-w-xl text-slate-600">The product may have been moved, removed, or opened from an old link.</p>
+          <a href="index.html#products" class="mt-7 inline-flex rounded-md bg-emerald-700 px-5 py-3 font-black text-white hover:bg-emerald-800">Browse Products</a>
+        </section>
+      `;
+    } else {
+      document.title = `${product.name} | KisanValley`;
+
+      const specs = product.specs || [
+        "Quality agricultural machinery",
+        "Support available from KisanValley",
+        "Delivery assistance available"
+      ];
+      const categoryLabel = getCategoryLabel(product.category);
+      const categoryUrl = categoryPages[product.category] || "index.html#products";
+      const relatedProducts = renderRelatedProducts(product);
+      const safeProductId = escapeHtml(product.id);
+      const safeProductName = escapeHtml(product.name);
+      const safeProductImage = escapeHtml(product.image);
+      const safeDescription = escapeHtml(product.description || "Reliable agricultural machinery selected for everyday field use.");
+      const safeCategoryLabel = escapeHtml(categoryLabel);
+      const safeCategoryUrl = escapeHtml(categoryUrl);
+      const jsProductId = escapeHtml(JSON.stringify(String(product.id)));
+
+      root.innerHTML = `
+        <nav class="mb-6 flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-500" aria-label="Breadcrumb">
+          <a href="index.html" class="hover:text-emerald-700">Home</a>
+          <span>/</span>
+          <a href="index.html#products" class="hover:text-emerald-700">Products</a>
+          <span>/</span>
+          <a href="${safeCategoryUrl}" class="hover:text-emerald-700">${safeCategoryLabel}</a>
+          <span>/</span>
+          <span class="text-slate-950">${safeProductName}</span>
+        </nav>
+
+        <section class="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(380px,0.95fr)]">
+          <div class="min-w-0">
+            <div class="overflow-hidden rounded-lg border border-slate-200 bg-white soft-shadow">
+              <div class="product-media bg-gradient-to-br from-stone-100 via-white to-emerald-50">
+                <img src="${safeProductImage}" alt="${safeProductName}" class="h-full w-full object-contain p-7 sm:p-10">
+              </div>
+              <div class="grid gap-3 border-t border-slate-200 p-4 sm:grid-cols-3">
+                <div class="rounded-md bg-slate-50 p-4">
+                  <p class="text-xs font-black uppercase tracking-wide text-slate-500">Category</p>
+                  <p class="mt-1 font-black text-slate-950">${safeCategoryLabel}</p>
+                </div>
+                <div class="rounded-md bg-slate-50 p-4">
+                  <p class="text-xs font-black uppercase tracking-wide text-slate-500">Assistance</p>
+                  <p class="mt-1 font-black text-slate-950">Expert support</p>
+                </div>
+                <div class="rounded-md bg-slate-50 p-4">
+                  <p class="text-xs font-black uppercase tracking-wide text-slate-500">Checkout</p>
+                  <p class="mt-1 font-black text-slate-950">Secure order</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="lg:sticky lg:top-24 lg:self-start">
+            <div class="rounded-lg border border-slate-200 bg-white p-5 soft-shadow sm:p-7">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-emerald-700">${safeCategoryLabel}</span>
+                <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-amber-700">Available for order</span>
+              </div>
+
+              <h1 class="mt-5 text-3xl font-black leading-tight tracking-tight text-slate-950 md:text-4xl">${safeProductName}</h1>
+              ${renderCompactRating(product.id)}
+              <p class="mt-4 text-base leading-7 text-slate-600">${safeDescription}</p>
+
+              <div class="mt-6 rounded-lg border border-emerald-100 bg-emerald-50 p-5">
+                <div class="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-black uppercase tracking-wide text-emerald-800">Price</p>
+                    <p class="mt-1 text-4xl font-black tracking-tight text-emerald-700">${formatPrice(product.price)}</p>
+                  </div>
+                  <p class="rounded-full bg-white px-3 py-1 text-xs font-black text-emerald-700">GST details at checkout</p>
+                </div>
+                <p class="mt-3 text-sm leading-6 text-emerald-900">Delivery, installation, and service support can be confirmed before dispatch.</p>
+              </div>
+
+              <div class="mt-6">
+                <label for="quantityInput" class="text-sm font-black text-slate-900">Quantity</label>
+                <div class="mt-2 flex h-12 w-40 overflow-hidden rounded-md border border-slate-300 bg-white">
+                  <button type="button" class="w-12 text-xl font-black text-slate-700 hover:bg-slate-100" onclick="setQuantity(-1)" aria-label="Decrease quantity">-</button>
+                  <input id="quantityInput" type="number" min="1" value="1" class="w-16 border-x border-slate-300 text-center font-black focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                  <button type="button" class="w-12 text-xl font-black text-slate-700 hover:bg-slate-100" onclick="setQuantity(1)" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <button onclick="addSelectedQuantity(${jsProductId})" class="rounded-md bg-emerald-700 px-5 py-3 font-black text-white hover:bg-emerald-800">Add to Cart</button>
+                <button onclick="buyNow(${jsProductId})" class="rounded-md bg-slate-950 px-5 py-3 font-black text-white hover:bg-slate-800">Buy Now</button>
+                <button type="button" data-wishlist-id="${safeProductId}" onclick="toggleWishlist(${jsProductId})" class="rounded-md border border-slate-300 px-5 py-3 font-black text-slate-700 hover:border-rose-500 hover:text-rose-600 sm:col-span-2">Save to Wishlist</button>
+              </div>
+
+              <div class="mt-6 grid gap-3 border-t border-slate-200 pt-6">
+                ${renderServiceItem("OK", "Verified product details", "Images, price, and machine details are pulled from the KisanValley product database.")}
+                ${renderServiceItem("Rs", "Flexible payment support", "Place orders through checkout and confirm available payment options before dispatch.")}
+                ${renderServiceItem("i", "Product selection help", "Contact support if you want guidance on matching this machine to your farm work.")}
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
+          <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <div class="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="text-sm font-black uppercase tracking-wide text-emerald-700">Highlights</p>
+                <h2 class="mt-1 text-2xl font-black tracking-tight text-slate-950">Built for Farm Work</h2>
+              </div>
+              <a href="${safeCategoryUrl}" class="text-sm font-black text-emerald-700 hover:text-emerald-900">View category</a>
+            </div>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              ${specs.map(spec => `
+                <div class="rounded-lg border border-slate-200 bg-stone-50 p-4">
+                  <p class="font-bold leading-6 text-slate-800">${escapeHtml(spec)}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-6">
+            <p class="text-sm font-black uppercase tracking-wide text-emerald-700">Need Assistance?</p>
+            <h2 class="mt-1 text-2xl font-black tracking-tight text-slate-950">Talk to Support</h2>
+            <p class="mt-3 text-sm leading-6 text-slate-600">Get help with machine selection, order questions, and service support.</p>
+            <div class="mt-5 grid gap-3">
+              <a href="tel:+919208567906" class="rounded-md bg-emerald-700 px-4 py-3 text-center font-black text-white hover:bg-emerald-800">Call +91 92085 67906</a>
+              <a href="contact.html" class="rounded-md border border-slate-300 px-4 py-3 text-center font-black text-slate-700 hover:border-emerald-600 hover:text-emerald-700">Contact Support</a>
+            </div>
+          </div>
+        </section>
+
+        <div id="reviewsMount"></div>
+
+        <section class="mt-8 rounded-lg border border-slate-200 bg-white p-6">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-sm font-black uppercase tracking-wide text-emerald-700">More Options</p>
+              <h2 class="mt-1 text-2xl font-black tracking-tight text-slate-950">Related Products</h2>
+            </div>
+            <a href="${safeCategoryUrl}" class="font-black text-emerald-700 hover:text-emerald-900">View all</a>
+          </div>
+          <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            ${relatedProducts || `<p class="text-slate-600">More products in this category are coming soon.</p>`}
+          </div>
+        </section>
+      `;
+
+      if (typeof syncWishlistButtons === "function") syncWishlistButtons();
+      if (typeof updateCartCounter === "function") updateCartCounter();
+      if (typeof renderReviewSystem === "function") renderReviewSystem(product);
+    }
+  </script>
+  <script src="kv-layout.js"></script>
+</body>
+</html>
